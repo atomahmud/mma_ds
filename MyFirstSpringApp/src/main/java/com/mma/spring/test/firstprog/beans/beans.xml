@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="person" class="com.mma.spring.test.firstprog.Person">
+		<constructor-arg value="12" name="id" type="int"></constructor-arg>
+		<constructor-arg value="${person.name}" name="name"
+			type="java.lang.String">
+		</constructor-arg>
+		<property name="taxId" value="${person.taxId}"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+	<bean id="address" class="com.mma.spring.test.firstprog.Address">
+		<constructor-arg name="street" value="Alfredo Campanini 6"
+			type="java.lang.String">
+		</constructor-arg>
+		<constructor-arg name="postalCode" value="20126" type="int"></constructor-arg>
+	</bean>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="com/mma/spring/test/firstprog/beans/personConfig.properties" />
+	</bean>
+	
+	<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basebeans">
+			<list>
+				<value>messages</value>
+			</list>
+		</property>
+	</bean>
+</beans>
